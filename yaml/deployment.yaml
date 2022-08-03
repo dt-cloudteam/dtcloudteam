@@ -26,8 +26,9 @@ kind: Service
 metadata:
   name: webapp
 spec:
+  type: LoadBalancer
   selector:
     app: webapp
   ports:
-  - port: 80
+  - port: 8080
     targetPort: 80
