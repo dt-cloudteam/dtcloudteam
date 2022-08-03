@@ -1,22 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dt2
+  name: dtdeployment
 spec:
   selector:
     matchLabels:
-      app: dt
+      app: webapp
   template:
     metadata:
       labels:
-        app: dt
+        app: webapp
     spec:
       containers:
-      - name: dtcontainer
-        image: melihselamiurkmez/dt
+      - name: nginxcontainer
+        image: melihselamiurkmez/dtcloud
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
         - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  selector:
+    app: webapp
+  ports:
+  - port: 80
+    targetPort: 80
