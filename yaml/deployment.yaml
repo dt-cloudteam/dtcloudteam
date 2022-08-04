@@ -11,6 +11,7 @@ spec:
       labels:
         app: webapp
     spec:
+      replicas: 3
       containers:
       - name: nginxcontainer
         image: melihselamiurkmez/dtcloud
