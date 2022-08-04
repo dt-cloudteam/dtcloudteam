@@ -11,13 +11,10 @@ spec:
       labels:
         app: webapp
     spec:
+      replicas: 3
       containers:
       - name: nginxcontainer
         image: melihselamiurkmez/dtcloud
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 80
 ---
