@@ -14,10 +14,6 @@ spec:
       containers:
       - name: nginxcontainer
         image: melihselamiurkmez/dtcloud
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "250m"
         ports:
         - containerPort: 80
 ---
