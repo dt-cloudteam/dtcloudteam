@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dtdeployment
+  name: dtcloudteamnginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: webapp
+      app: argocd
   template:
     metadata:
       labels:
-        app: webapp
+        app: argocd
     spec:
       containers:
-      - name: nginxcontainer
+      - name: webcontainer
         image: melihselamiurkmez/dtcloud
         ports:
         - containerPort: 80
@@ -21,11 +21,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp
+  name: argocdlbs
 spec:
   type: LoadBalancer
   selector:
-    app: webapp
+    app: argocd
   ports:
   - port: 8080
     targetPort: 80
