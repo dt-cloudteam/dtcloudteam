@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: dtdeployment
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: webapp
@@ -11,7 +12,6 @@ spec:
       labels:
         app: webapp
     spec:
-      replicas: 3
       containers:
       - name: nginxcontainer
         image: melihselamiurkmez/dtcloud
