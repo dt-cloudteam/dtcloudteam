@@ -33,7 +33,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: omer-website1
+    app: omer-website
   ports:
   - name: my-first-port
     protocol: TCP
