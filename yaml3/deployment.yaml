@@ -46,5 +46,5 @@ apiVersion: networking.gke.io/v1
     namespace: argocd
   spec:
     domains:
-      - dtcloudteam.com
+      - "dtcloudteam.com"
  
