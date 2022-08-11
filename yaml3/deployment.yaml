@@ -36,6 +36,15 @@ spec:
   ports:
   - port: 8080
     targetPort: 80
+---
+
+apiVersion: networking.gke.io/v1
+  kind: ManagedCertificate
+  metadata:
+    name: cert
+  spec:
+    domains:
+      - dtcloudteam.com
     
 
 
