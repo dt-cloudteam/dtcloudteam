@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: testnginx3
+  namespace: argocd
 spec:
   replicas: 3
   selector:
@@ -26,6 +27,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: testnginx3-svc
+  namespace: argocd
 spec:
   type: NodePort
   selector:
