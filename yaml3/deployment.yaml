@@ -21,22 +21,20 @@ spec:
         - name: "PORT"
           value: "80"
           
+
 ---
+ 
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: testnginx3-svc
-  namespace: argocd
+  name: testnginxlb
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: argocd
-    
   ports:
-  - name: svc-port
-    protocol: TCP
-    port: 8080
+  - port: 8080
     targetPort: 80
     
 
