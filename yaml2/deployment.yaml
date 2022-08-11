@@ -35,6 +35,7 @@ spec:
     protocol: TCP
     port: 60001
     targetPort: 50001
+    nodePort: 30007
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
