@@ -47,4 +47,24 @@ apiVersion: networking.gke.io/v1
   spec:
     domains:
       - "dtcloudteam.com"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: testnginx3-ingress
+  annotations:
+    networking.gke.io/managed-certificates: "argocd-nginx"
+spec:
+  rules:
+  - host: dtcloudteam.com
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: my-mc-service
+            port:
+              number: 8080
+  
+ 
  
