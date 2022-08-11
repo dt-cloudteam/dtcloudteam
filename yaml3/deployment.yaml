@@ -38,14 +38,7 @@ spec:
     targetPort: 443
 ---
 
-apiVersion: networking.gke.io/v1
-  kind: ManagedCertificate
-  metadata:
-    name: cert
-  spec:
-    domains:
-      - dtcloudteam.com
-    
+
 
 
   
