@@ -33,8 +33,8 @@ spec:
   ports:
   - name: my-first-port
     protocol: TCP
-    port: 60001
-    targetPort: 50001
+    port: 8080
+    targetPort: 80
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
