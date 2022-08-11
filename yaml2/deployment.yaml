@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: omer-website
+        app: omer-website1
     spec:
       containers:
       - name: containername
