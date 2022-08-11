@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: salihtest-website-deployment
+  namespace: salihtest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: salihtest-website
+  template:
+    metadata:
+      labels:
+        app: salihtest-website
+    spec:
+      containers:
+      - name: salihtest-website-container
+        image: salihdemirer/dtwebexample:v1
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
