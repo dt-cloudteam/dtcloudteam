@@ -43,6 +43,7 @@ apiVersion: networking.gke.io/v1
   kind: ManagedCertificate
   metadata:
     name: testnginx3
+    namespace: argocd
   spec:
     domains:
       - dtcloudteam.com
