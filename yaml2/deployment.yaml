@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: containername
-        image: "melihselamiurkmez/dtcloud:1.1"
+        image: melihselamiurkmez/dtcloud:1.1
         env:
-        - name: "PORT"
-          value: "50001"
+        - name: PORT
+          value: 80
 ---
 apiVersion: v1
 kind: Service
