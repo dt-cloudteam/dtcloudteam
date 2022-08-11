@@ -53,7 +53,7 @@ spec:
       - pathType: ImplementationSpecific
         backend:
           service:
-            name: my-mc-service
+            name: testnginx3-svc
             port:
               number: 8080
   
