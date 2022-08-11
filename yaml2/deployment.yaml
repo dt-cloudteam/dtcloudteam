@@ -7,7 +7,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: omer-website
+      app: omer-website1
   template:
     metadata:
       labels:
