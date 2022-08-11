@@ -15,7 +15,7 @@ spec:
         department: sales
     spec:
       containers:
-      - name: hello
+      - name: containername
         image: "melihselamiurkmez/dtcloud:1.1"
         env:
         - name: "PORT"
