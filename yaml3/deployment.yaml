@@ -34,8 +34,8 @@ spec:
   selector:
     app: argocd
   ports:
-  - port: 80
-    targetPort: 443
+  - port: 8080
+    targetPort: 80
 
 
 
