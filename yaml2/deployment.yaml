@@ -44,8 +44,13 @@ metadata:
 spec:
   tls:
   - secretName: secret1
-  defaultBackend:
-    service:
-      name: "my-mc-service"
-      port:
-        number: 60001
+    rules:
+  - host: dtcloudintern.com
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: my-mc-service
+            port:
+              number: 60001
