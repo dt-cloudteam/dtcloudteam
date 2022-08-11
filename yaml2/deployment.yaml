@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dtcloudteamnginx2
+  name: dtcloudteamnginx3
 spec:
   replicas: 3
   selector:
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-mc-service
+  name: servis
 spec:
   type: NodePort
   selector:
@@ -39,7 +39,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: my-mc-ingress
+  name: ingressname
 spec:
   tls:
   - secretName: secret1
@@ -50,6 +50,6 @@ spec:
       - pathType: ImplementationSpecific
         backend:
           service:
-            name: my-mc-service
+            name: servis
             port:
               number: 60001
