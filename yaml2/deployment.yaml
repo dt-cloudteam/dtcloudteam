@@ -35,21 +35,3 @@ spec:
     protocol: TCP
     port: 60001
     targetPort: 50001
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingressname
-spec:
-  tls:
-  - secretName: secret1
-    rules:
-  - host: dtcloudintern.com
-    http:
-      paths:
-      - pathType: ImplementationSpecific
-        backend:
-          service:
-            name: servis
-            port:
-              number: 60001
