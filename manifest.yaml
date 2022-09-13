@@ -1,0 +1,188 @@
+# Namespace Başlangıcı
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-kanboard
+# Namespace Bitişi
+---
+# Persistent Volume Claim Başlangıcı
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    srv: dbakanboard
+  name: dba-kanboard-dba
+  namespace: ns-kanboard
+spec:
+  storageClassName: standard-rwo
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    srv: dbakanboard
+  name: dba-kanboard-cfg
+  namespace: ns-kanboard
+spec:
+  storageClassName: standard-rwo
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  name: kanboard-data
+  namespace: ns-kanboard
+spec:
+  storageClassName: standard-rwo
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+status: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kanboard
+  name: kanboard-plugins
+  namespace: ns-kanboard
+spec:
+  storageClassName: standard-rwo
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Mi
+status: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kanboard
+  name: kanboard-ssl
+  namespace: ns-kanboard
+spec:
+  storageClassName: standard-rwo
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+# Persistent Volume Claim Bitişi
+
+# Database Deployment Başlangıcı
+---
+#apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbkanboard
+  namespace: ns-kanboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      srv: dbkanboard
+  template:
+    metadata:
+      labels:
+       srv: dbkanboard
+    spec:
+      volumes:
+      - name: kanboard-dba
+        persistentVolumeClaim:
+          claimName: dba-kanboard-dba
+      - name: kanboard-cfg
+        persistentVolumeClaim:
+          claimName: dba-kanboard-cfg
+      containers:
+      - args:
+        - --default-authentication-plugin=mysql_native_password
+        env:
+        - name: DEBUG
+          value: 'true'
+        - name: MYSQL_DATABASE
+          value: kanboard
+        - name: MYSQL_PASSWORD
+          value: mysqlsecret
+        - name: MYSQL_ROOT_PASSWORD
+          value: secret
+        - name: MYSQL_USER
+          value: kanboarduser
+        image: mariadb:latest
+        name: dbkanboard
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+          name: mariadb
+        resources: {}
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: kanboard-dba
+        - mountPath: "/etc/mysql"
+          name: kanboard-cfg
+status: {}
+
+# Database Deployment Bitişi
+
+
+# DB Service Başlangıcı
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbkanboard-service
+  namespace: ns-kanboard
+spec:
+  ports:
+  - name: mariadb
+    targetPort: 3306
+    port: 3306
+    protocol: TCP
+  selector:
+    srv: dbkanboard
+
+# DB Service Bitişi
+
+
+# Kanboard NodePort Service Başlangıcı
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kanboard-service
+  namespace: ns-kanboard
+spec:
+  ports:
+  - name: http
+    targetPort: 80
+    port: 80
+    protocol: TCP
+  - name: https
+    targetPort: 443
+    port: 443
+    protocol: TCP
+  type: NodePort
+  selector:
+    run: kanboard
+
+# Kanboard NodePort Service Bitişi
