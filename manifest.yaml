@@ -5,7 +5,94 @@ metadata:
   name: ns-kanboard
 # Namespace Bitişi
 ---
-# Persistent Volume Claim Başlangıcı
+# Persistent Volume Başlangıcı
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: dba-kanboard-dba
+  namespace: ns-kanboard
+  labels:
+    type: local
+    srv: dbkanboard
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: disk-1
+    fsType: ext4
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: dba-kanboard-cfg
+  namespace: ns-kanboard
+  labels:
+    type: local
+    srv: dbkanboard
+spec:
+  capacity:
+    storage: 200Mi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: disk-1
+    fsType: ext4
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kanboard-data
+  namespace: ns-kanboard
+  labels:
+    type: local
+    app: kanboard
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: disk-1
+    fsType: ext4
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kanboard-ssl
+  namespace: ns-kanboard
+  labels:
+    type: local
+    app: kanboard
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: disk-1
+    fsType: ext4
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kanboard-plugins
+  namespace: ns-kanboard
+  labels:
+    type: local
+    app: kanboard
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: disk-1
+    fsType: ext4
+---
+# Persistent Volume Bitiş
+# Persistent Volume Claim Başlangıç
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -21,6 +108,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
+status: {}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -140,6 +228,57 @@ spec:
           name: kanboard-dba
         - mountPath: "/etc/mysql"
           name: kanboard-cfg
+status: {}
+
+# Database Deployment Bitişi
+
+
+# Kanboard Deployment Başlangıcı
+---
+##apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kanboard
+  namespace: ns-kanboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: kanboard
+  template:
+    metadata:
+      labels:
+        run: kanboard
+    spec:
+      volumes:
+      - name: kanboard-data
+        persistentVolumeClaim:
+          claimName: kanboard-data
+      - name: kanboard-plugins
+        persistentVolumeClaim:
+          claimName: kanboard-plugins
+      - name: kanboard-ssl
+        persistentVolumeClaim:
+          claimName: kanboard-ssl
+      containers:
+      - env:
+        - name: DEBUG
+          value: 'true'
+        - name: DATABASE_URL
+          value: 'mysql://kanboarduser:mysqlsecret@dbkanboard-service/kanboard'
+        name: kanboard
+        image: kanboard/kanboard:latest
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - mountPath: "/var/www/app/data"
+          name: kanboard-data
+        - mountPath: "/var/www/app/plugins"
+          name: kanboard-plugins
+        - mountPath: "/etc/nginx/ssl"
+          name: kanboard-ssl
 status: {}
 
 # Database Deployment Bitişi
