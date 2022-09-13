@@ -5,7 +5,7 @@ Doğuş Teknoloji Sistem-Platform Yönetimi altında bulunan Cloud Yönetimi eki
 <h3> Ekip Üyeleri </h3>
 <ul>
 
-<li> Ömer Şen <br> 
+<li> Ömer Şen <br>
 <li> Sinem Bayır <br> 
 <li> Asrın Andırın <br>
 <li> İbrahim Yeşil <br>
