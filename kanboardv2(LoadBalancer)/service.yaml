@@ -1,0 +1,14 @@
+---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: dbkanboard-service
+    namespace: ns-kanboard
+  spec:
+    ports:
+    - name: mariadb
+      targetPort: 3306
+      port: 3306
+      protocol: TCP
+    selector:
+      srv: dbkanboard
