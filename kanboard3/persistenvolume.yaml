@@ -1,0 +1,85 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: dba-kanboard-dba
+  namespace: ns-kanboard
+  labels:
+    type: local
+    srv: dbkanboard
+spec:
+  storageClassName: local-storage-kanboard
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/fs_kanboard/mysqldata/"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: dba-kanboard-cfg
+  namespace: ns-kanboard
+  labels:
+    type: local
+    srv: dbkanboard
+spec:
+  storageClassName: local-storage-kanboard
+  capacity:
+    storage: 200Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/fs_kanboard/mysqlcfg/"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kanboard-data
+  namespace: ns-kanboard
+  labels:
+    type: local
+    app: kanboard
+spec:
+  storageClassName: local-storage-kanboard
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/fs_kanboard/data/"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kanboard-ssl
+  namespace: ns-kanboard
+  labels:
+    type: local
+    app: kanboard
+spec:
+  storageClassName: local-storage-kanboard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/fs_kanboard/ssl"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kanboard-plugins
+  namespace: ns-kanboard
+  labels:
+    type: local
+    app: kanboard
+spec:
+  storageClassName: local-storage-kanboard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/fs_kanboard/plugins"
+---

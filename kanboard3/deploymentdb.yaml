@@ -1,0 +1,50 @@
+---
+  #apiVersion: extensions/v1beta1
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: dbkanboard
+    namespace: ns-kanboard
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        srv: dbkanboard
+    template:
+      metadata:
+        labels:
+         srv: dbkanboard
+        volumes:
+        - name: kanboard-dba
+          persistentVolumeClaim:
+            claimName: dba-kanboard-dba
+        - name: kanboard-cfg
+          persistentVolumeClaim:
+            claimName: dba-kanboard-cfg
+        containers:
+        - args:
+          - --default-authentication-plugin=mysql_native_password
+          env:
+          - name: DEBUG
+            value: 'true'
+          - name: MYSQL_DATABASE
+            value: kanboard
+          - name: MYSQL_PASSWORD
+            value: mysqlsecret
+          - name: MYSQL_ROOT_PASSWORD
+            value: secret
+          - name: MYSQL_USER
+            value: kanboarduser
+          image: mariadb:latest
+          name: dbkanboard
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+            name: mariadb
+          resources: {}
+          volumeMounts:
+          - mountPath: "/var/lib/mysql"
+            name: kanboard-dba
+          - mountPath: "/etc/mysql"
+            name: kanboard-cfg
+  status: {}
