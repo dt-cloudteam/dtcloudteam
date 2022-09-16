@@ -10,5 +10,4 @@ spec:
   containers:
     - name: ubuntu-custom-container
       image: salihdemirer/ubuntu-nettools:v2
-      command: ["/bin/bash","-c", "sleep infinity"] # Kubernetes ortamında containerin completed olmaması için.
       
