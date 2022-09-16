@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-custom-pod
+  labels:
+    name: ubuntu-custom-pod
+    tools: networking
+spec:
+  containers:
+    - name: ubuntu-custom-container
+      image: salihdemirer/ubuntu-nettools
+      command: ["/bin/bash","-c", "sleep infinity"] # Kubernetes ortamında containerin completed olmaması için.
+      
