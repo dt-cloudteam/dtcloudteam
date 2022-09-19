@@ -1,17 +1,1 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: kb-ingress
-  namespace: ns-kanboard
-  
-spec:
-  rules:
-  http:
-    paths:
-    - path: /*
-      pathType: ImplementationSpecific
-      backend:
-        service:
-          name: kanboard-service
-          port:
-            number: 8080
+
