@@ -8,17 +8,10 @@ spec:
   - host: "dt-kanboard.com"
     http:
       paths:
-      - path: /main
+      - path: /*
         pathType: ImplementationSpecific
         backend:
           service:
             name: kanboard-service
             port:
               number: 80
-      - path: /db
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: dbkanboard-service
-            port:
-              number: 3306
