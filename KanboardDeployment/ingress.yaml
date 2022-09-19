@@ -3,9 +3,9 @@ kind: Ingress
 metadata:
   name: kb-ingress
   namespace: ns-kanboard
+  
 spec:
   rules:
-  - host: "dt-kanboard.com"
     http:
       paths:
       - path: /*
