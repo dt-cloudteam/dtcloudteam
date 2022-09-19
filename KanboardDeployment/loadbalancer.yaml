@@ -5,14 +5,24 @@ metadata:
   namespace: ns-kanboard
 spec:
   ports:
-  - name: http
-    targetPort: 80
-    port: 80
-    protocol: TCP
   - name: https
     targetPort: 443
     port: 443
     protocol: TCP
-  type: LoadBalancer
+  type: NodePort
   selector:
     run: kanboard
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kboard-ingress
+  namespace: ns-kanboard
+spec:
+  defaultBackend:
+    service:
+      name: kanboard-service
+      port:
+        number: 443
+  tls:
+  - secretName: kb-secret
