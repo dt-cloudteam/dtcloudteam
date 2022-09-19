@@ -4,13 +4,9 @@ metadata:
   name: kb-ingress
   namespace: ns-kanboard
 spec:
-  tls:
-    - hosts:
-      - "dt-kanboard.com"
-      secretName: kanboard-ssl
   rules:
   - host: "dt-kanboard.com"
-    https:
+    http:
       paths:
       - path: /main
         pathType: ImplementationSpecific
@@ -18,7 +14,7 @@ spec:
           service:
             name: kanboard-service
             port:
-              number: 443
+              number: 80
       - path: /db
         pathType: ImplementationSpecific
         backend:
