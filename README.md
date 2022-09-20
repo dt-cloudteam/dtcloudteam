@@ -10,5 +10,4 @@ Doğuş Teknoloji Sistem-Platform Yönetimi altında bulunan Cloud Yönetimi eki
 <li> Asrın Andırın <br>
 <li> İbrahim Yeşil <br>
 <li> Melih Selami Ürkmez <br> 
-<li> Emine Aköz <br>
 <li> Salih Furkan Demirer <br>
