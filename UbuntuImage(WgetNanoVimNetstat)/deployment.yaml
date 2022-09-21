@@ -17,3 +17,4 @@ spec:
       containers:
       - name: ubuntu
         image:  europe-west4-docker.pkg.dev/dt-terraform-test/dt-cloud/custom-ubuntu:v2
+      serviceAccountName: ksa-name 
