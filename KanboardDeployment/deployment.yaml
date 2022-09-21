@@ -34,7 +34,6 @@
           name: kanboard
           image: kanboard/kanboard:latest
           ports:
-          - containerPort: 80
           - containerPort: 443
           volumeMounts:
           - mountPath: "/var/www/app/data"
