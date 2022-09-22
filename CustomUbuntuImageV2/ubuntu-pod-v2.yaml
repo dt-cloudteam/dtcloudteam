@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-custom-pod-2
+  namespace: ubuntu-image
+  labels:
+    name: ubuntu-custom-pod
+    tools: networking
+spec:
+  containers:
+    - name: ubuntu-custom-container
+      image: omersen/ubuntuimage
+      
