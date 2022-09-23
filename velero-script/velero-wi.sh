@@ -1,6 +1,6 @@
 #!/bin/bash
 # -------------------------------------------- Uyarılar --------------------------------------------------------------------------------
-# Parametre olarak sadece Bucket ismi alıyor.
+# Parametre olarak ilk Bucket ismi, ikinci olarak location ismi alıyor.
 # Service Account isimleri değiştirildiği taktirde velero deployment yaml içerisinde serviceAccount alanlarının değiştirilmesi gerekiyor.
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Doğru projede olduğumuzun kontrolü.
@@ -13,7 +13,7 @@ read -r -p "Doğru projede olduğundan emin misin? [y/N] " response
         if [[ -z $(gcloud storage buckets list | grep -x "name: $BUCKET") ]]; then
             echo "Bucket oluşturuluyor..."
             BUCKET_NAME=$BUCKET
-            if [[ -n $(gsutil mb gs://$BUCKET_NAME/ | grep ServiceException) ]]; then
+            if [[ -z $(gsutil mb gs://$BUCKET_NAME/ --location=$2 | grep ServiceException) ]]; then
                 echo "Bucket oluşturuldu."
             else
                 echo "Aynı isimde bucket var. Bucket ismi global olarak benzersiz olmalı."
