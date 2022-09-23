@@ -13,7 +13,7 @@ read -r -p "Doğru projede olduğundan emin misin? [y/N] " response
         if [[ -z $(gcloud storage buckets list | grep -x "name: $BUCKET") ]]; then
             echo "Bucket oluşturuluyor..."
             BUCKET_NAME=$BUCKET
-            if [[ -z $(gsutil mb gs://$BUCKET_NAME/ --location=$2 | grep ServiceException) ]]; then
+            if [[ -z $(gsutil mb -l $2 gs://$BUCKET_NAME/  | grep ServiceException) ]]; then
                 echo "Bucket oluşturuldu."
             else
                 echo "Aynı isimde bucket var. Bucket ismi global olarak benzersiz olmalı."
