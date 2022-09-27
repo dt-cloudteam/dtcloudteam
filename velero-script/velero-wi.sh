@@ -37,6 +37,7 @@ read -r -p "Doğru projede olduğundan emin misin? [y/N] " response
         # Hesap oluşumu kontrolü.
         if [[ -z $(gcloud iam service-accounts list | grep "Velero service account") ]]; then
             echo "Service Account oluşturulmamış işlem sonlandırılıyor..."
+            exit
         else
             # Servis Account mail adresinin ortam değişkenine aktarılması.
             SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --filter="displayName:Velero service account" --format 'value(email)')
