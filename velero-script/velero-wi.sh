@@ -4,6 +4,10 @@
 # Service Account isimleri değiştirildiği taktirde velero deployment yaml içerisinde serviceAccount alanlarının değiştirilmesi gerekiyor.
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Doğru projede olduğumuzun kontrolü.
+if [[ $# -eq 0 ]] ; then
+    echo 'Kullanımı : ./velero-wi.sh [Bucket ismi] [Bucket lokasyonu]'
+    exit 1
+fi
 read -r -p "Doğru projede olduğundan emin misin? [y/N] " response
     if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
         # ProjectID değerimizi ortam değişkenine aktarılması.
