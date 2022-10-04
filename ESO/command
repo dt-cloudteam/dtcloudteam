@@ -1,0 +1,11 @@
+ helm repo add external-secrets https://charts.external-secrets.io
+    helm install external-secrets    external-secrets/external-secrets     -n external-secrets     --create-namespace \
+echo -ne '{"password":"dtcloud2022!"}' | gcloud secrets create dtcloudteamv2 --data-file=- --locations=europe-west1 --replication-policy="user-managed"
+ gcloud secrets add-iam-policy-binding dtcloudteam --member "serviceAccount:gke-sa@dt-terraform-test.iam.gserviceaccount.com" --role "roles/secretmanager.secretAccessor"
+  337  kubectl create serviceaccount dtcloudsm-sa     --namespace external-secrets
+  338  gcloud iam service-accounts add-iam-policy-binding gke-sa@dt-terraform-test.iam.gserviceaccount.com     --role roles/iam.workloadIdentityUser     --member "serviceAccount:dt-terraform-test.svc.id.goog[external-secrets/dtcloudsm]"
+  339  kubectl annotate serviceaccount dtcloudsm-sa     --namespace external-secrets     iam.gke.io/gcp-service-account=gke-sa@dt-terraform-test.iam.gserviceaccount.com
+  340  kubectl apply -f /home/sinem_bayir/secret-store.yaml
+  341  kubectl apply -f /home/sinem_bayir/external-secrets.yaml
+  342  kubectl get secrets -A
+  343
