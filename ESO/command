@@ -15,3 +15,6 @@ echo -ne '{"password":"dtcloud2022!"}' | gcloud secrets create dtcloudteamv2 --d
   341  kubectl apply -f /home/sinem_bayir/external-secrets.yaml
   342  kubectl get secrets -A
   343
+
+
+https://external-secrets.io/v0.5.9/guides-getting-started/
