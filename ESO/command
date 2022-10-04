@@ -18,3 +18,4 @@ echo -ne '{"password":"dtcloud2022!"}' | gcloud secrets create secretin-ismi --d
 
 
 https://external-secrets.io/v0.5.9/guides-getting-started/
+https://external-secrets.io/v0.5.9/provider-google-secrets-manager/
