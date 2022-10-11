@@ -2,7 +2,7 @@
 #--------------------------------------------------------------------------------
 
 # Üzerine düşünülmesi gerekenler:
-# - Karmaşık ve PlainText olmayan bir şifre entegre edebilir miyiz?
+# - Karmaşık olan ve PlainText olmayan bir şifre entegre edebilir miyiz?
 # - lvcreate komutunda 01 yerine farklı bir isim vermeyi düşünürsek değeri değişkenle alabiliriz. Aldığımız taktirde LV ismine bağlı komutlarda değişkeni belirtmemiz gerekir.
 # - mkfs komutunda oluşturacağımız dosya sistemini değişken olarak alabiliriz.
 
