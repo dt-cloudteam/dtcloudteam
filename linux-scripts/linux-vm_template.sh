@@ -3,8 +3,8 @@
 
 # Üzerine düşünülmesi gerekenler:
 # - Karmaşık olan ve PlainText olmayan bir şifre entegre edebilir miyiz?
-# - lvcreate komutunda 01 yerine farklı bir isim vermeyi düşünürsek değeri değişkenle alabiliriz. Aldığımız taktirde LV ismine bağlı komutlarda değişkeni belirtmemiz gerekir.
-# - mkfs komutunda oluşturacağımız dosya sistemini değişken olarak alabiliriz.
+# ✅ lvcreate komutunda 01 yerine farklı bir isim vermeyi düşünürsek değeri değişkenle alabiliriz. Aldığımız taktirde LV ismine bağlı komutlarda değişkeni belirtmemiz gerekir.
+# ✅ mkfs komutunda oluşturacağımız dosya sistemini değişken olarak alabiliriz.
 
 #--------------------------------------------------------------------------------
 
@@ -12,6 +12,10 @@
 dirName="< uygulama_adi >" # Klasör için vereceğimiz isim.
 device="/dev/sdb" # Eklenecek diskin ismi
 diskPercentage="100%FREE" # Diskte kullanım için ayrılacak % miktarı.
+fs_type="xfs" # Dosya sistemi tipi
+lv_name="01" # LV ismi
+dump="0" # Bu değer 0 olduğunda backup dışına alınır.
+fsck="0" # Bu değer 0 olduğunda dosya sistemi kontrolünden geçmez. Değer 1 olduğunda ilk olarak kontrol edilir. 2 olduğu zaman sistem reboot esnasında kontrol edilir.
 hostname="< host_adi >"
 declare -a userArray=("< kullanici_1 >" "< kullanici_2 >") #1 kullanıcı
 declare -a hostArray=("111.111.111.111 deneme deneme.az.deneme.com.tr" "111.111.111.111 deneme2 deneme2.az.deneme2.com.tr")
@@ -52,11 +56,11 @@ disk_partition(){
 	# "/" klasoru icerisine dosya acmak icin:
 	mkdir "/$dirName"
 	# Volume Group adini parametre olarak vererek Logical Volume olusturmak icin:
-	lvcreate -n 01 -l $diskPercentage $dirName # Buradaki $dirName vgcreate ile oluşturulan VG NAME değerine referanstır. 01 LV NAME değeridir.
+	lvcreate -n $lv_name -l $diskPercentage $dirName # Buradaki $dirName vgcreate ile oluşturulan VG NAME değerine referanstır. 01 LV NAME değeridir.
 	# XFS dosya sistemi olusturmak icin:
-	mkfs.xfs /dev/mapper/$dirName-01
+	mkfs.$fs_type /dev/mapper/$dirName-$lv_name
 	# Diskin boot sonrasinda sistem tarafindan otomatik olarak eklenmesi icin (Bu satir root kullanici olmadigimiz zaman permission hatasi verir!):
-	echo "/dev/mapper/$dirName-01     /$dirName 	xfs	defaults	0	0" >> /etc/fstab
+	echo "/dev/mapper/$dirName-$lv_name     /$dirName 	$fs_type	defaults	$dump	$fsck" >> /etc/fstab
 	# fstab uzerindeki butun dosya sistemlerini mount etmek icin:
 	mount -a
 }
