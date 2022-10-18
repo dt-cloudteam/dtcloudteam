@@ -36,7 +36,8 @@ hostname(){
 users(){
 	# Bu fonksiyon userArray dizisindeki her elemanı kullanıcı olarak sisteme ekler. Şifre süresini 365 gün olarak değiştirir.
 	for user in "${userArray[@]}";do
-	useradd $user
+	#useradd $user ->
+	adduser $user
 	chage -M 365 $user # Bir şifrenin yaşayabileceği maksimum süre. (Gün cinsinden.)
 	done
 }
