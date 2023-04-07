@@ -2,6 +2,10 @@ import requests
 from datetime import date
 import datetime
 import csv
+
+# Melih Selami Urkmez / Asrin Andirin
+
+
 sessionhostlist=[]
 inactive_users=[]
 AZ_TOKEN="" # get access token command -> az account get-access-token --resource https://management.azure.com --query accessToken -o tsv
